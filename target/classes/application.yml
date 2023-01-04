@@ -1,0 +1,20 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      routes:
+        - id: passenger-api
+          uri: http://localhost:8090
+          predicates:
+          - Path=/passenger-api/**
+          filters:
+            - StripPrefix= 1
+      discovery:
+        locator:
+          enabled: true
